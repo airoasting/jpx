@@ -1,0 +1,19 @@
+{
+  "note": "발동 판단 점검용. should_trigger=false 항목은 옆 스킬(dart, edgar)이나 범위 밖으로 가야 한다. 2026-11-06 작성, 아직 대리 점검 전.",
+  "queries": [
+    {"query": "/jpx 닌텐도", "should_trigger": true},
+    {"query": "토요타 이번 분기 실적 어때?", "should_trigger": true},
+    {"query": "소니 가이던스 올렸어?", "should_trigger": true},
+    {"query": "도쿄일렉트론 상반기 진척률 정리해줘", "should_trigger": true},
+    {"query": "미쓰비시상사 배당이랑 자사주 얼마나 해?", "should_trigger": true},
+    {"query": "유니클로 회사 PBR 몇 배야", "should_trigger": true},
+    {"query": "任天堂の決算短信を要約して", "should_trigger": true},
+    {"query": "7203 결산단신 3개월 실적만 뽑아줘", "should_trigger": true},
+    {"query": "미쓰비시UFJ 사도 돼?", "should_trigger": true},
+    {"query": "삼성전자 3분기 실적 어때", "should_trigger": false, "expected": "dart"},
+    {"query": "애플 10-Q 매출 성장률", "should_trigger": false, "expected": "edgar"},
+    {"query": "닛케이 지수 오늘 몇이야", "should_trigger": false},
+    {"query": "일본 주식 PBR 1배 미만 종목 20개 뽑아줘", "should_trigger": false},
+    {"query": "엔화 환율 전망 알려줘", "should_trigger": false}
+  ]
+}

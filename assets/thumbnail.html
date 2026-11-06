@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- README 썸네일 원본. 1200×630을 2배로 찍어 thumbnail.png를 만든다.
+     DART 썸네일(어두운 배경 + KPI 카드)과 겹치지 않게 밝은 종이 바탕에 '예상 수정 이력' 하나를 주인공으로 둔다.
+     숫자는 2026-11-05 토요타 결산단신 실측값(fin_guidance)이다. 바꾸면 PNG도 다시 찍는다.
+     찍는 법: Chrome --headless=new --force-device-scale-factor=2 --window-size=1200,630 --screenshot -->
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:630px; overflow:hidden; }
+  :root {
+    --paper:#F3EEE4; --paper2:#ECE5D8; --ink:#1C1C21; --ink2:#55524C; --ink3:#8E887D;
+    --shu:#C9372A; --ai:#2D3E6E; --rule:rgba(28,28,33,.07);
+  }
+  body {
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+    -webkit-font-smoothing:antialiased; background:var(--paper); color:var(--ink); position:relative;
+  }
+  /* 종이 결: 옅은 세로 괘선과 가장자리 그늘 */
+  .paper {
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 39px, var(--rule) 39px 40px),
+      radial-gradient(130% 110% at 50% 50%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 60%),
+      linear-gradient(180deg, var(--paper) 0%, var(--paper2) 100%);
+  }
+  .edge { position:absolute; inset:0; box-shadow:inset 0 0 120px rgba(90,70,40,.10); }
+  .band { position:absolute; left:0; top:0; bottom:0; width:14px; background:var(--shu); }
+
+  .stage { position:relative; height:100%; display:grid; grid-template-columns:450px 1fr; gap:38px; padding:0 52px 0 78px; align-items:center; }
+
+  /* ── 왼쪽 ── */
+  .kicker { font-size:14px; font-weight:700; letter-spacing:.4px; color:var(--ink2); display:flex; align-items:center; gap:10px; }
+  .kicker .ja { font-family:'Hiragino Mincho ProN','Hiragino Mincho Pro','YuMincho',serif; font-weight:600; color:var(--shu); letter-spacing:2px; }
+  .kicker .bar { width:22px; height:1.5px; background:var(--ink3); }
+  .name { margin-top:30px; display:flex; align-items:flex-end; gap:18px; }
+  .name .wm { font-size:124px; font-weight:900; letter-spacing:-6px; line-height:.82; color:var(--ink); }
+  .seal {
+    width:66px; height:66px; border:3px solid var(--shu); border-radius:8px; color:var(--shu);
+    display:grid; place-items:center; transform:rotate(-7deg); margin-bottom:8px;
+    font-family:'Hiragino Mincho ProN','YuMincho',serif; font-weight:700; font-size:23px; line-height:1.02; text-align:center;
+    background:rgba(201,55,42,.05);
+  }
+  .head { margin-top:34px; font-size:33px; font-weight:800; letter-spacing:-1.2px; line-height:1.32; }
+  .head em { font-style:normal; color:var(--shu); }
+  .desc { margin-top:16px; font-size:16.5px; font-weight:500; line-height:1.62; color:var(--ink2); letter-spacing:-.2px; }
+  .chips { margin-top:30px; display:flex; gap:10px; align-items:center; }
+  .cmd { font-family:'SF Mono',ui-monospace,Menlo,monospace; font-size:16px; font-weight:600; color:var(--paper);
+         background:var(--ink); padding:11px 18px; border-radius:10px; }
+  .cmd b { color:#F08A7E; font-weight:600; }
+  .tag { font-size:13px; font-weight:700; color:var(--ai); border:1.5px solid rgba(45,62,110,.35); padding:9px 13px; border-radius:10px; }
+
+  /* ── 오른쪽: 예상 수정 이력 ── */
+  .panel { position:relative; background:rgba(255,255,255,.62); border:1px solid rgba(28,28,33,.10);
+           border-radius:4px; padding:26px 28px 20px; box-shadow:0 26px 50px -22px rgba(60,45,25,.50);
+           transform:rotate(-10deg) scale(.88); transform-origin:50% 50%; }
+  .panel::before { content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--ink); }
+  .p-top { display:flex; justify-content:space-between; align-items:flex-start; }
+  .p-co { font-size:19px; font-weight:800; letter-spacing:-.4px; }
+  .p-co span { display:block; margin-top:5px; font-size:12.5px; font-weight:600; color:var(--ink3); letter-spacing:0; }
+  .p-badge { text-align:right; }
+  .p-badge .n { font-size:30px; font-weight:900; color:var(--shu); letter-spacing:-1px; line-height:1; }
+  .p-badge .l { margin-top:5px; font-size:11.5px; font-weight:700; color:var(--ink3); }
+  svg { display:block; margin-top:10px; overflow:visible; width:100%; height:auto; }
+  .foot { margin-top:14px; padding-top:12px; border-top:1px solid rgba(28,28,33,.10); display:flex; justify-content:space-between;
+          font-size:12.5px; font-weight:600; color:var(--ink2); }
+  .foot b { color:var(--ink); font-weight:800; }
+</style>
+</head>
+<body>
+  <div class="paper"></div>
+  <div class="edge"></div>
+  <div class="band"></div>
+
+  <div class="stage">
+    <div>
+      <div class="kicker"><span class="ja">決算短信</span><span class="bar"></span>일본 상장사 결산단신 읽기</div>
+      <div class="name"><div class="wm">jpx</div><div class="seal">短<br>信</div></div>
+      <div class="head">회사가 낸 실적 예상,<br><em>몇 번 고쳤는지</em>까지.</div>
+      <div class="desc">결산단신을 읽어 실적, 진척률, 예상 수정 이력을<br>한국어로 정리합니다.</div>
+      <div class="chips"><div class="cmd">/jpx <b>토요타</b></div><div class="tag">API 키 없이</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="p-top">
+        <div class="p-co">토요타 영업이익, 회사 예상<span>2027년 3월기(2026.4~2027.3) · IFRS 연결</span></div>
+        <div class="p-badge"><div class="n">+30.0%</div><div class="l">기초 예상 대비</div></div>
+      </div>
+
+      <!-- y: 1조 = 200px, 3.0조 → 250, 3.4조 → 170, 3.9조 → 70. x: 5월 70, 8월 250, 11월 430 -->
+      <svg viewBox="0 0 586 318">
+        <g font-family="Pretendard,-apple-system,'Apple SD Gothic Neo',sans-serif">
+          <g stroke="rgba(28,28,33,.10)" stroke-width="1">
+            <line x1="0" x2="586" y1="250" y2="250"/><line x1="0" x2="586" y1="150" y2="150"/><line x1="0" x2="586" y1="50" y2="50"/>
+          </g>
+          <g font-size="11" font-weight="600" fill="#8E887D">
+            <text x="0" y="244">3.0조</text><text x="0" y="144">3.5조</text><text x="0" y="44">4.0조</text>
+          </g>
+          <path d="M70 250 H250 V170 H430 V70 H520 V290 H70 Z" fill="rgba(201,55,42,.07)"/>
+          <path d="M70 250 H250 V170 H430 V70 H520" fill="none" stroke="#1C1C21" stroke-width="3.5" stroke-linejoin="round"/>
+          <line x1="520" x2="586" y1="70" y2="70" stroke="#1C1C21" stroke-width="2" stroke-dasharray="4 5"/>
+          <circle cx="70" cy="250" r="7" fill="#F3EEE4" stroke="#1C1C21" stroke-width="3"/>
+          <circle cx="250" cy="170" r="7" fill="#C9372A"/>
+          <circle cx="430" cy="70" r="8" fill="#C9372A"/>
+          <g font-weight="800" fill="#1C1C21">
+            <text x="84" y="236" font-size="17">3조 엔</text>
+            <text x="264" y="156" font-size="17">3조 4,000억</text>
+            <text x="444" y="56" font-size="18">3조 9,000억</text>
+          </g>
+          <g font-size="12.5" font-weight="800" fill="#C9372A">
+            <text x="260" y="216">▲ 13.3%</text>
+            <text x="440" y="122">▲ 14.7%</text>
+          </g>
+          <line x1="40" x2="586" y1="290" y2="290" stroke="rgba(28,28,33,.25)"/>
+          <g font-size="12" font-weight="700" fill="#55524C" text-anchor="middle">
+            <text x="70" y="311">5월 · 기초 예상</text>
+            <text x="250" y="311">8월 · 1분기 단신</text>
+            <text x="430" y="311">11월 · 2분기 단신</text>
+          </g>
+          <text x="586" y="311" font-size="12" font-weight="700" fill="#8E887D" text-anchor="end">실적은 내년 5월</text>
+        </g>
+      </svg>
+
+      <div class="foot"><span>상반기 진척률 <b>56.2%</b> · 과거 3년 같은 시점 평균 <b>50.8%</b></span><span>출처: TDnet 결산단신</span></div>
+    </div>
+  </div>
+</body>
+</html>
