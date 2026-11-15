@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import analysis as an  # noqa: E402
 import jpx_client as jc  # noqa: E402
 
-SERVER = {"name": "jpx", "version": "0.2.0"}
+SERVER = {"name": "jpx", "version": "0.2.1"}
 PROTOCOLS = ("2025-06-18", "2025-03-26", "2024-11-05")
 
 
